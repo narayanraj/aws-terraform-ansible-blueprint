@@ -1,0 +1,19 @@
+---
+- hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Pull Container
+      docker_image:
+        name: nginx
+        source: pull
+
+    - name: Run Container
+      docker_container:
+        name: demo-app
+        image: nginx
+        state: started
+        restart_policy: always
+        ports:
+          - "80:80"
